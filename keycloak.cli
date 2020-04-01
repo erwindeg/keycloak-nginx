@@ -1,0 +1,8 @@
+embed-server --std-out=echo --server-config=standalone-ha.xml
+batch
+
+/subsystem=keycloak-server/:write-attribute(name=web-context,value=keycloak/auth)
+/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=proxy-address-forwarding, value=true)
+
+run-batch
+stop-embedded-server
